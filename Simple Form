@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário Empresarial</title>
+    <style>
+        /* Centralizar o formulário na página */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Estilizar o contêiner do formulário */
+        .form-container {
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f2f2f2;
+        }
+
+            /* Estilizar os campos do formulário */
+            .form-container input[type=text], .form-container input[type=email], .form-container input[type=tel], .form-container textarea {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                resize: vertical;
+            }
+
+            /* Estilizar o botão de envio */
+            .form-container input[type=submit] {
+                background-color: #4CAF50;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                width: 100%;
+            }
+
+                /* Estilizar o botão de envio ao passar o mouse */
+                .form-container input[type=submit]:hover {
+                    background-color: #45a049;
+                }
+
+        /* Estilizar as mensagens de erro */
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form onsubmit="return validarFormulario()">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+            <div id="erroNome" class="error-message"></div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Seu email" required>
+            <div id="erroEmail" class="error-message"></div>
+
+            <label for="telefone">Número de Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="Seu número de telefone" required>
+            <div id="erroTelefone" class="error-message"></div>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco" placeholder="Seu endereço" required>
+            <div id="erroEndereco" class="error-message"></div>
+
+            <!-- Elementos adicionais para empresas -->
+            <label for="departamento">Departamento:</label>
+            <input type="text" id="departamento" name="departamento" placeholder="Seu departamento">
+
+            <label for="cargo">Cargo:</label>
+            <input type="text" id="cargo" name="cargo" placeholder="Seu cargo">
+
+            <label for="empresa">Empresa:</label>
+            <input type="text" id="empresa" name="empresa" placeholder="Sua empresa">
+
+            <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem"></textarea>
+
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+
+    <script>
+        function validarFormulario() {
+            // Limpar mensagens de erro anteriores
+            limparErros();
+
+            // Validar campo de nome
+            var campoNome = document.getElementById("nome");
+            if (campoNome.value.trim() === "") {
+                document.getElementById("erroNome").innerText = "O nome é obrigatório";
+                campoNome.focus();
+                return false;
+            }
+
+            // Validar campo de email
+            var campoEmail = document.getElementById("email");
+            var regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!regexEmail.test(campoEmail.value)) {
+                document.getElementById("erroEmail").innerText = "Endereço de email inválido";
+                campoEmail.focus();
+                return false;
+            }
+
+            // Validar campo de telefone
+            var campoTelefone = document.getElementById("telefone");
+            var regexTelefone = /^\d{10}$/;
+            if (!regexTelefone.test(campoTelefone.value)) {
+                document.getElementById("erroTelefone").innerText = "Número de telefone inválido";
+                campoTelefone.focus();
+                return false;
+            }
+
+            // Validar campo de endereço
+            var campoEndereco = document.getElementById("endereco");
+            if (campoEndereco.value.trim() === "") {
+                document.getElementById("erroEndereco").innerText = "O endereço é obrigatório";
+                campoEndereco.focus();
+                return false;
+            }
+
+            // Formulário é válido
+            return true;
+        }
+
+        function limparErros() {
+            var mensagensErro = document.getElementsByClassName("error-message");
+            for (var i = 0; i < mensagensErro.length; i++) {
+                mensagensErro[i].innerText = "";
+            }
+        }
+    </script>
+</body>
+</html>
